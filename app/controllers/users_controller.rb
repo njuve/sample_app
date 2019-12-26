@@ -9,12 +9,20 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user=User.new(user_params)
-    if @user.save
-      #
+    @user = User.new(user_params)
+    if @user.save # => Validation
+      # Sucess
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
+      # GET "/users/#{@user.id}" => show
     else
-        render 'new'
+      # Failure
+      render 'new'
     end
+  end
+  
+  def index
+    @users = User.all
   end
   
   private
